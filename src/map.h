@@ -435,6 +435,7 @@ public:
 	void save(ModifiedState save_level);
 	//void loadAll();
 	void listAllLoadableBlocks(std::list<v3s16> &dst);
+	bool getNextLoadableBlock(v3s16 &dst);
 	// Saves map seed and possibly other stuff
 	void saveMapMeta();
 	void loadMapMeta();

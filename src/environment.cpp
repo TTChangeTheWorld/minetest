@@ -953,7 +953,7 @@ void ServerEnvironment::clearAllObjects()
 	//m_map->listAllLoadableBlocks(loadable_blocks);
 	infostream<<"ServerEnvironment::clearAllObjects(): "
 			<<"Done listing all loadable blocks: "
-			<<"everything "<<
+			<<"everything "
 			//<<loadable_blocks.size()
 			<<", now clearing"<<std::endl;
 	//u32 report_interval = loadable_blocks.size() / 10;
@@ -981,14 +981,14 @@ void ServerEnvironment::clearAllObjects()
 		}
 		num_blocks_checked++;
 
-		if(num_blocks_checked % report_interval == 0){
+		/*if(num_blocks_checked % report_interval == 0){
 			//float percent = 100.0 * (float)num_blocks_checked /
 			//		loadable_blocks.size();
 			infostream<<"ServerEnvironment::clearAllObjects(): "
 					<<"Cleared "<<num_objs_cleared<<" objects"
 					<<" in "<<num_blocks_cleared<<" blocks"<<std::endl;
 					//<<percent<<"%)"<<std::endl;
-		}
+		}*/
 	}
 	infostream<<"ServerEnvironment::clearAllObjects(): "
 			<<"Finished: Cleared "<<num_objs_cleared<<" objects"

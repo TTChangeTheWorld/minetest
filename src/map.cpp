@@ -3409,6 +3409,22 @@ void ServerMap::listAllLoadableBlocks(std::list<v3s16> &dst)
 	}
 }
 
+bool ServerMap::getNextLoadableBlock(v3s16 &dst)
+{
+    //Let's hope, that Database was verifyed before...
+    if (sqlite3_step(m_database_list) == SQLITE_ROW){
+        sqlite3_int64 block_i = sqlite3_column_int64(m_database_list, 0);
+        v3s16 p = getIntegerAsBlock(block_i);
+	    dst = p;
+        return true;
+    }
+    else
+    {
+	  //Nothing to do here now	  
+      return false;
+    }
+}
+
 void ServerMap::saveMapMeta()
 {
 	DSTACK(__FUNCTION_NAME);

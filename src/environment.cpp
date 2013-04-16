@@ -946,22 +946,23 @@ void ServerEnvironment::clearAllObjects()
 		m_active_objects.erase(*i);
 	}
 
-	std::list<v3s16> loadable_blocks;
+	//std::list<v3s16> loadable_blocks;
+	v3s16 current_block;
 	infostream<<"ServerEnvironment::clearAllObjects(): "
 			<<"Listing all loadable blocks"<<std::endl;
-	m_map->listAllLoadableBlocks(loadable_blocks);
+	//m_map->listAllLoadableBlocks(loadable_blocks);
 	infostream<<"ServerEnvironment::clearAllObjects(): "
 			<<"Done listing all loadable blocks: "
-			<<loadable_blocks.size()
+			<<"everything "<<
+			//<<loadable_blocks.size()
 			<<", now clearing"<<std::endl;
-	u32 report_interval = loadable_blocks.size() / 10;
+	//u32 report_interval = loadable_blocks.size() / 10;
 	u32 num_blocks_checked = 0;
 	u32 num_blocks_cleared = 0;
 	u32 num_objs_cleared = 0;
-	for(std::list<v3s16>::iterator i = loadable_blocks.begin();
-			i != loadable_blocks.end(); ++i)
+	while (m_map->getNextLoadableBlock(current_block))
 	{
-		v3s16 p = *i;
+		v3s16 p = current_block;
 		MapBlock *block = m_map->emergeBlock(p, false);
 		if(!block){
 			errorstream<<"ServerEnvironment::clearAllObjects(): "
@@ -981,12 +982,12 @@ void ServerEnvironment::clearAllObjects()
 		num_blocks_checked++;
 
 		if(num_blocks_checked % report_interval == 0){
-			float percent = 100.0 * (float)num_blocks_checked /
-					loadable_blocks.size();
+			//float percent = 100.0 * (float)num_blocks_checked /
+			//		loadable_blocks.size();
 			infostream<<"ServerEnvironment::clearAllObjects(): "
 					<<"Cleared "<<num_objs_cleared<<" objects"
-					<<" in "<<num_blocks_cleared<<" blocks ("
-					<<percent<<"%)"<<std::endl;
+					<<" in "<<num_blocks_cleared<<" blocks"<<std::endl;
+					//<<percent<<"%)"<<std::endl;
 		}
 	}
 	infostream<<"ServerEnvironment::clearAllObjects(): "
